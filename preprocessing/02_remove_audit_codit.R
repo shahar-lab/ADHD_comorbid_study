@@ -2,10 +2,10 @@ library(dplyr)
 library(writexl)
 
 #### Load data ----
-load("data/processed_data/df_remove_diagnosis_contradiction.Rdata")
+load("data/processed_data/df_aff_with_rank_and_cluster.Rdata")
 
 #### Remove rows above AUDIT/CUDIT cutoffs ----
-df_remove_audit_cudit <- df_remove_diagnosis_contradiction %>%
+df_remove_audit_cudit <- df_aff_with_rank_and_cluster %>%
   filter(
     !(alcohol_use_cutoff == "above_audit_cutoff"),
     !(cannabis_use_cutoff == "above_cudit_cutoff")

@@ -11,6 +11,11 @@ normalize_place_name <- function(x) {
   tolower(x)
 }
 
+objs <- load("data/raw_data/df_agg_without_gender_and_undeclared_group.Rdata")
+print("@@@@@@@@@")
+str(objs)
+print("@@@@@@@@@")
+
 #### Load data ----
 load("data/raw_data/df_agg_without_gender_and_undeclared_group.Rdata")
 
@@ -34,7 +39,7 @@ ses_lookup <- ses %>%
   distinct(lookup_name, .keep_all = TRUE)
 
 #### Add rank and cluster to the study data ----
-df_aff_with_rank_and_cluster <- df_agg %>%
+df_aff_with_rank_and_cluster <- first_database %>%
   mutate(
     lookup_name = normalize_place_name(place_of_residence_until12yo)
   ) %>%
