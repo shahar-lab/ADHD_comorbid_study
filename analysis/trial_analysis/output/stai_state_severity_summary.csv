@@ -1,0 +1,7 @@
+group,stai_state_severity,n,pct
+ADHD,Below clinical cutoff,175,85.8
+ADHD,At or above clinical cutoff,29,14.2
+TD,Below clinical cutoff,217,97.3
+TD,At or above clinical cutoff,6,2.7
+Overall,Below clinical cutoff,392,91.8
+Overall,At or above clinical cutoff,35,8.2

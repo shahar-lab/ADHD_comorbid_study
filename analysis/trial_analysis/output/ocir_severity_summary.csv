@@ -1,0 +1,7 @@
+group,ocir_severity,n,pct
+ADHD,Below clinical cutoff,100,49.5
+ADHD,At or above clinical cutoff,102,50.5
+TD,Below clinical cutoff,176,78.9
+TD,At or above clinical cutoff,47,21.1
+Overall,Below clinical cutoff,276,64.9
+Overall,At or above clinical cutoff,149,35.1

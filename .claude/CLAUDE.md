@@ -1,0 +1,1 @@
+For all anaylsis use the main dataframe from the file  df_remove_diagnosis_contradiction.Rdata that is in data/processed_data folder 

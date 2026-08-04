@@ -11,11 +11,6 @@ normalize_place_name <- function(x) {
   tolower(x)
 }
 
-objs <- load("data/raw_data/df_agg_without_gender_and_undeclared_group.Rdata")
-print("@@@@@@@@@")
-str(objs)
-print("@@@@@@@@@")
-
 #### Load data ----
 load("data/raw_data/df_agg_without_gender_and_undeclared_group.Rdata")
 
