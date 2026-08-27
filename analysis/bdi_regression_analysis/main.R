@@ -47,5 +47,11 @@ source(file.path(code_dir, "plot_panel_b.R"))
 # 7. Sub-panel C: posterior ratio (ADHD mean / TD mean)
 source(file.path(code_dir, "plot_panel_c.R"))
 
-# 8. Assemble composite figure (A left, B/C stacked right; saves to output/)
+# 8. Panel D: posterior proportion of each group above the clinical cutoff
+source(file.path(code_dir, "plot_panel_d.R"))
+
+# 8b. Numeric summary table of Panel D's cutoff proportions (saves to output/)
+source(file.path(code_dir, "summarize_cutoff_proportions.R"))
+
+# 9. Assemble composite figure (A left, B/C/D stacked right; saves to output/)
 source(file.path(code_dir, "assemble_figure.R"))

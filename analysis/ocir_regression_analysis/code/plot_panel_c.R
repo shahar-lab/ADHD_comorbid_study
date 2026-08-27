@@ -40,7 +40,7 @@ p_panel_c <- ggplot(ratio_df, aes(x = theta, y = 0)) +
     axis.line.y  = element_blank(),
     axis.line.x  = element_line(colour = "grey30")
   ) +
-  labs(x = "ADHD mean / TD mean") +
+  labs(x = "with ADHD mean / without ADHD mean") +
   coord_cartesian(xlim = xlim_ratio, ylim = c(0, 1.3), clip = "on")
 
 saveRDS(p_panel_c, file.path(artifacts_dir, "panel_c.rds"))

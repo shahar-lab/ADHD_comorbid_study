@@ -37,7 +37,7 @@ p_panel_b <- ggplot(diff_df, aes(x = theta, y = 0)) +
     axis.line.y  = element_blank(),
     axis.line.x  = element_line(colour = "grey30")
   ) +
-  labs(x = "ADHD - TD (OCIR points)") +
+  labs(x = "with ADHD - without ADHD (OCIR points)") +
   coord_cartesian(xlim = c(-max_abs, max_abs), ylim = c(0, 1.3), clip = "on")
 
 saveRDS(p_panel_b, file.path(artifacts_dir, "panel_b.rds"))

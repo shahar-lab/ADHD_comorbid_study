@@ -1,20 +1,20 @@
 metric,value
-mean_diff_ADHD_minus_TD,6.483
-median_diff_ADHD_minus_TD,6.487
-cohens_d,0.977
-cohens_d_ci_low,0.783
-cohens_d_ci_high,1.170
-mean_diff_ci_low,5.268
-mean_diff_ci_high,7.697
-t_statistic,10.489
+mean_diff_ADHD_minus_TD,7.094
+median_diff_ADHD_minus_TD,7.376
+cohens_d,1.152
+cohens_d_ci_low,0.955
+cohens_d_ci_high,1.350
+mean_diff_ci_low,5.967
+mean_diff_ci_high,8.221
+t_statistic,12.371
 t_df,462.00
 t_pvalue,< 2.2e-16
 t_test_type,Student
-shapiro_W_ADHD,0.994
-shapiro_p_ADHD,0.6242
-shapiro_W_TD,0.996
-shapiro_p_TD,0.7088
-var_test_F,1.157
-var_test_p,0.2673
-wilcoxon_W,40504.0
+shapiro_W_ADHD,0.993
+shapiro_p_ADHD,0.4684
+shapiro_W_TD,0.991
+shapiro_p_TD,0.1254
+var_test_F,0.979
+var_test_p,0.8723
+wilcoxon_W,42427.0
 wilcoxon_p,< 2.2e-16

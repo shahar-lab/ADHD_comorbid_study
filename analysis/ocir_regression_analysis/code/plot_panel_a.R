@@ -48,7 +48,9 @@ p_panel_a <- ggplot(df, aes(x = group_declared, y = ocir)) +
   geom_point(data = pred_summary,
              aes(x = x_pos, y = median_val),
              inherit.aes = FALSE, shape = 15, size = 2, color = "black") +
-  scale_color_manual(values = group_colors, name = "Group") +
+  scale_color_manual(values = group_colors, name = "Group",
+                      labels = c(TD = "without ADHD", ADHD = "with ADHD")) +
+  scale_x_discrete(labels = c(TD = "without ADHD", ADHD = "with ADHD")) +
   scale_y_continuous(limits = c(0, 72)) +
   labs(x = "Group", y = "OCIR score (0-72)") +
   theme_minimal(base_size = 13) +

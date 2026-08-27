@@ -5,6 +5,10 @@ df              <- readRDS(file.path(artifacts_dir, "df_regression.rds"))
 posterior_draws <- readRDS(file.path(artifacts_dir, "posterior_draws.rds"))
 
 group_colors <- c(ADHD = "#0072B2", TD = "#D55E00")
+# Display-only relabeling of the group_declared factor: the underlying
+# "TD"/"ADHD" values and level order are unchanged; only the text shown
+# to the viewer (legend, x-axis ticks) is remapped.
+group_labels <- c(TD = "without ADHD", ADHD = "with ADHD")
 cutoff_raw   <- 32
 # Colorblind-safe, low-saturation pair for the cutoff bands (grey + sand),
 # deliberately outside the blue/vermillion family used for group colors above,
@@ -44,7 +48,8 @@ p_panel_a <- ggplot(df, aes(x = group_declared, y = aq)) +
   geom_point(data = pred_summary,
              aes(x = x_pos, y = median_val),
              inherit.aes = FALSE, shape = 15, size = 2, color = "black") +
-  scale_color_manual(values = group_colors, name = "Group") +
+  scale_color_manual(values = group_colors, name = "Group", labels = group_labels) +
+  scale_x_discrete(labels = group_labels) +
   scale_y_continuous(limits = c(0, 50)) +
   labs(x = "Group", y = "AQ score (0-50)") +
   theme_minimal(base_size = 13) +

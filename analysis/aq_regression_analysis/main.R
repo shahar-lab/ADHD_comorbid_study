@@ -48,17 +48,23 @@ source(file.path(code_dir, "plot_panel_b.R"))
 # 7. Sub-panel C: posterior ratio (ADHD mean / TD mean)
 source(file.path(code_dir, "plot_panel_c.R"))
 
-# 8. Assemble composite figure (A left, B/C stacked right; saves to output/)
+# 8. Panel D: posterior proportion of each group above the clinical cutoff
+source(file.path(code_dir, "plot_panel_d.R"))
+
+# 8b. Numeric summary of Panel D: median + 90% CI of proportion above cutoff per group (saves to output/)
+source(file.path(code_dir, "summarize_cutoff_proportions.R"))
+
+# 9. Assemble composite figure (A left, B/C/D stacked right; saves to output/)
 source(file.path(code_dir, "assemble_figure.R"))
 
-# 9. Simulate 464 AQ scores from posterior draws of the fitted model (saves to artifacts/)
+# 10. Simulate 464 AQ scores from posterior draws of the fitted model (saves to artifacts/)
 source(file.path(code_dir, "simulate_aq_from_posterior.R"))
 
-# 10. Simulated AQ overview, descriptives, skew/kurtosis, outliers (read-only; saves tables to output/)
+# 11. Simulated AQ overview, descriptives, skew/kurtosis, outliers (read-only; saves tables to output/)
 source(file.path(code_dir, "summarize_simulated_aq_descriptives.R"))
 
-# 11. Simulated AQ group difference, assumption checks, model-implied comparison (read-only; saves table to output/)
+# 12. Simulated AQ group difference, assumption checks, model-implied comparison (read-only; saves table to output/)
 source(file.path(code_dir, "summarize_simulated_aq_comparison.R"))
 
-# 12. Diagnostic plots (histogram/density + Q-Q) for the simulated AQ dataset (saves to output/)
+# 13. Diagnostic plots (histogram/density + Q-Q) for the simulated AQ dataset (saves to output/)
 source(file.path(code_dir, "plot_simulated_aq_diagnostics.R"))
