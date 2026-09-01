@@ -33,7 +33,7 @@ span <- diff(r)
 xlim_prop <- c(max(0, r[1] - 0.20 * span), min(1, r[2] + 0.20 * span))
 
 p_panel_d <- ggplot(prop_df, aes(x = prop_above, y = 0, fill = group_declared, colour = group_declared)) +
-  stat_slab(alpha = 0.50) +
+  stat_slab(alpha = 0.50, show.legend = FALSE) +
   stat_pointinterval(
     aes(linewidth = after_stat(.width)),
     .width     = c(0.80, 0.90),
@@ -45,9 +45,21 @@ p_panel_d <- ggplot(prop_df, aes(x = prop_above, y = 0, fill = group_declared, c
   # ratio (null = 1), a proportion-above-cutoff has no privileged null value —
   # there is no "no effect" proportion to mark, so a dashed line at 0 (or
   # anywhere else) would not represent a meaningful reference point here.
-  scale_fill_manual(values = group_colors, labels = group_labels,
-                     guide = guide_legend(override.aes = list(alpha = 0.7))) +
-  scale_colour_manual(values = group_colors, guide = "none") +
+  scale_fill_manual(values = group_colors, guide = "none") +
+  # Real ggplot legend (not a manually positioned annotation): ggplot reserves
+  # exact space for the legend text automatically, so it can never crop or
+  # spill past the plot edge the way a hand-computed inset position could.
+  # override.aes forces a plain solid dot glyph (matching the plotted point
+  # colour) instead of the shaded slab-fill swatch the fill aesthetic would
+  # otherwise draw; reverse = TRUE lists ADHD (blue) above TD (orange), per
+  # spec, since group_declared's factor levels are TD-first.
+  scale_colour_manual(
+    values = group_colors, labels = group_labels,
+    guide = guide_legend(
+      title = NULL, reverse = TRUE,
+      override.aes = list(shape = 19, size = 3, alpha = 1, linetype = 0)
+    )
+  ) +
   theme_minimal(base_size = 13) +
   theme(
     panel.grid           = element_blank(),
@@ -56,10 +68,13 @@ p_panel_d <- ggplot(prop_df, aes(x = prop_above, y = 0, fill = group_declared, c
     axis.ticks.y         = element_blank(),
     axis.line.y          = element_blank(),
     axis.line.x          = element_line(colour = "grey30"),
-    legend.position       = c(1, 0.95),
+    legend.position       = c(0.95, 0.97),
     legend.justification  = c("right", "top"),
     legend.background     = element_blank(),
-    legend.key            = element_blank()
+    legend.key            = element_blank(),
+    legend.key.size       = unit(0.7, "lines"),
+    legend.text           = element_text(size = 9),
+    legend.margin          = margin(t = 2, r = 4, b = 2, l = 2, unit = "pt")
   ) +
   labs(x = "Proportion of group above clinical cutoff (BDI ≥ 14)", fill = NULL) +
   coord_cartesian(xlim = xlim_prop, ylim = c(0, 1.3), clip = "on")

@@ -5,6 +5,7 @@ model_fit       <- readRDS(file.path(artifacts_dir, "model_fit.rds"))
 posterior_draws <- readRDS(file.path(artifacts_dir, "posterior_draws.rds"))
 
 group_colors <- c(ADHD = "#0072B2", TD = "#D55E00")
+group_labels <- c(TD = "without ADHD", ADHD = "with ADHD")
 cutoff_raw   <- 21
 
 # Residual SD draws - single population-level sigma in this model (no
@@ -23,16 +24,30 @@ prop_df <- bind_rows(
 )
 
 p_panel_d <- ggplot(prop_df, aes(x = theta, y = 0, fill = group_declared, colour = group_declared)) +
-  stat_slab(alpha = 0.50) +
+  stat_slab(alpha = 0.50, show.legend = FALSE) +
   stat_pointinterval(
     aes(linewidth = after_stat(.width)),
     .width     = c(0.80, 0.90),
     point_size = 3
   ) +
   scale_linewidth_continuous(range = c(2, 1), guide = "none") +
-  scale_fill_manual(values = group_colors, labels = c(TD = "without ADHD", ADHD = "with ADHD"),
-                     guide = guide_legend(override.aes = list(alpha = 0.7))) +
-  scale_colour_manual(values = group_colors, guide = "none") +
+  scale_fill_manual(values = group_colors, guide = "none") +
+  # Real ggplot legend (not a manually positioned annotation): ggplot reserves
+  # exact space for the legend text automatically, so it can never crop or
+  # spill past the plot edge the way a hand-computed inset position could.
+  # override.aes forces a plain solid dot glyph (matching the plotted point
+  # colour) instead of the shaded slab-fill swatch the fill aesthetic would
+  # otherwise draw. Unlike the sibling panels, prop_df$group_declared here is
+  # plain character (not a TD-first factor), so ggplot's default alphabetical
+  # discrete order ("ADHD" < "TD") already lists ADHD above TD - no
+  # guide_legend(reverse = TRUE) needed to get blue-then-orange.
+  scale_colour_manual(
+    values = group_colors, labels = group_labels,
+    guide = guide_legend(
+      title = NULL,
+      override.aes = list(shape = 19, size = 3, alpha = 1, linetype = 0)
+    )
+  ) +
   theme_minimal(base_size = 13) +
   theme(
     panel.grid           = element_blank(),
@@ -41,10 +56,13 @@ p_panel_d <- ggplot(prop_df, aes(x = theta, y = 0, fill = group_declared, colour
     axis.ticks.y         = element_blank(),
     axis.line.y          = element_blank(),
     axis.line.x          = element_line(colour = "grey30"),
-    legend.position      = c(1, 0.95),
-    legend.justification = c("right", "top"),
-    legend.background    = element_blank(),
-    legend.key           = element_blank()
+    legend.position       = c(0.95, 0.97),
+    legend.justification  = c("right", "top"),
+    legend.background     = element_blank(),
+    legend.key            = element_blank(),
+    legend.key.size       = unit(0.7, "lines"),
+    legend.text           = element_text(size = 9),
+    legend.margin          = margin(t = 2, r = 4, b = 2, l = 2, unit = "pt")
   ) +
   # ASSUMED[exact axis wording not specified]: "Proportion of group above
   # clinical cutoff", following the spec's suggested wording verbatim.

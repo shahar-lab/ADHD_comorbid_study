@@ -1,7 +1,0 @@
-group,aq_severity,n,pct
-ADHD,Below clinical cutoff,191,92.7
-ADHD,At or above clinical cutoff,15,7.3
-TD,Below clinical cutoff,221,99.1
-TD,At or above clinical cutoff,2,0.9
-Overall,Below clinical cutoff,412,96
-Overall,At or above clinical cutoff,17,4

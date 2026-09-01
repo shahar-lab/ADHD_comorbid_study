@@ -1,0 +1,11 @@
+Questionnaire,N,N_ADHD,N_TD,PPV_at_optimal_cutoff,NPV_at_optimal_cutoff,Direction_used,Direction_meaning
+AQ,429,206,223,0.705,0.735,<,higher associated with ADHD
+ASRS,432,207,225,0.949,0.919,<,higher associated with ADHD
+WURS,427,204,223,0.879,0.869,<,higher associated with ADHD
+BDI,430,206,224,0.681,0.719,<,higher associated with ADHD
+OCI-R,425,202,223,0.653,0.714,<,higher associated with ADHD
+PQ-B,347,173,174,0.663,0.652,<,higher associated with ADHD
+STAI-State,427,204,223,0.714,0.676,<,higher associated with ADHD
+STAI-Trait,427,204,223,0.702,0.703,<,higher associated with ADHD
+PATAS,194,167,27,0.941,0.267,<,higher associated with ADHD
+ICAR,425,202,223,0.505,0.552,>,lower associated with ADHD

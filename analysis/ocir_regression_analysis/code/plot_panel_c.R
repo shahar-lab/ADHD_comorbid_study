@@ -11,13 +11,18 @@ med_ratio <- median(draws_ratio)
 # pd_ratio = probability mass on the majority side of 1.
 pd_ratio  <- max(mean(draws_ratio > 1), mean(draws_ratio < 1)) * 100
 
-# Ratio's null value is 1, not 0: dashed reference line goes at x = 1, and the
-# axis is padded ~20% around the posterior range rather than forced symmetric
-# around it (non-effect-posterior axis rule - a deliberate, approved deviation
-# from the strict effect/non-effect binary, since a ratio fits neither cleanly).
-r    <- range(draws_ratio)
-span <- diff(r)
-xlim_ratio <- c(r[1] - 0.20 * span, r[2] + 0.20 * span)
+# Ratio's null value is 1, not 0: dashed reference line goes at x = 1.
+# Per-plot window: centered on the posterior median with a baseline 2-unit
+# span for cross-plot comparability, widened only as needed to cover the
+# distribution's central 98% mass (with modest padding) without clipping real
+# mass, and always keeping x = 1 visible with a minimum margin from either edge.
+q_lo       <- quantile(draws_ratio, 0.01)
+q_hi       <- quantile(draws_ratio, 0.99)
+pad        <- 0.10 * (q_hi - q_lo)
+half_width <- 1
+margin     <- 0.15
+xlim_ratio <- c(min(med_ratio - half_width, q_lo - pad, 1 - margin),
+                max(med_ratio + half_width, q_hi + pad, 1 + margin))
 
 # ASSUMED[unverified pending execution]: same fixed-y annotation anchor
 # (y = 1.28) and hjust convention as Panel B, following the established

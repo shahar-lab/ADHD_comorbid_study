@@ -7,7 +7,19 @@ draws_diff <- posterior_draws$diff
 diff_df  <- tibble(theta = draws_diff)
 med_diff <- median(draws_diff)
 pd_diff  <- max(mean(draws_diff > 0), mean(draws_diff < 0)) * 100
-max_abs  <- max(abs(range(draws_diff)))
+
+# Diff's null value is 0, not 1: dashed reference line goes at x = 0.
+# Per-plot window: sized to the distribution's own central 98% mass (with
+# modest padding) rather than forced symmetric around 0 (which wastes space
+# when the whole distribution sits on one side), while always keeping x = 0
+# visible with a margin proportional to the window's own span (units are raw
+# questionnaire points and differ by measure, so a relative margin is used
+# instead of a fixed absolute one).
+q_lo        <- quantile(draws_diff, 0.01)
+q_hi        <- quantile(draws_diff, 0.99)
+pad         <- 0.10 * (q_hi - q_lo)
+zero_margin <- 0.15 * ((q_hi + pad) - (q_lo - pad))
+xlim_diff   <- c(min(q_lo - pad, -zero_margin), max(q_hi + pad, zero_margin))
 
 # ASSUMED[unverified pending execution]: this model has never actually been
 # fit in this folder (artifacts/ and output/ contain only .gitkeep), so
@@ -38,6 +50,6 @@ p_panel_b <- ggplot(diff_df, aes(x = theta, y = 0)) +
     axis.line.x  = element_line(colour = "grey30")
   ) +
   labs(x = "with ADHD - without ADHD (OCIR points)") +
-  coord_cartesian(xlim = c(-max_abs, max_abs), ylim = c(0, 1.3), clip = "on")
+  coord_cartesian(xlim = xlim_diff, ylim = c(0, 1.3), clip = "on")
 
 saveRDS(p_panel_b, file.path(artifacts_dir, "panel_b.rds"))
