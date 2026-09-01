@@ -48,12 +48,19 @@ p_panel_a <- ggplot(df, aes(x = group_declared, y = ocir)) +
   geom_point(data = pred_summary,
              aes(x = x_pos, y = median_val),
              inherit.aes = FALSE, shape = 15, size = 2, color = "black") +
-  scale_color_manual(values = group_colors, name = "Group",
-                      labels = c(TD = "without ADHD", ADHD = "with ADHD")) +
+  # Legend moved from below to above the panel, single horizontal row, dot
+  # glyphs (matching Panel D's style): title removed ("Group" no longer
+  # shown), reverse = TRUE lists ADHD (blue, "with ADHD") before TD (orange,
+  # "without ADHD") since group_declared's factor levels are TD-first.
+  scale_color_manual(
+    values = group_colors, labels = c(TD = "without ADHD", ADHD = "with ADHD"),
+    guide = guide_legend(title = NULL, reverse = TRUE,
+                          override.aes = list(shape = 19, size = 3, alpha = 1))
+  ) +
   scale_x_discrete(labels = c(TD = "without ADHD", ADHD = "with ADHD")) +
   scale_y_continuous(limits = c(0, 72)) +
   labs(x = "Group", y = "OCIR score (0-72)") +
   theme_minimal(base_size = 13) +
-  theme(panel.grid = element_blank(), legend.position = "bottom")
+  theme(panel.grid = element_blank(), legend.position = "top", legend.title = element_blank())
 
 saveRDS(p_panel_a, file.path(artifacts_dir, "panel_a.rds"))
